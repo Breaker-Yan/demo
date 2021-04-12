@@ -1,0 +1,22 @@
+{
+  "outPath": "src/main/resources/static/doc",
+  "projectName": "cool",
+  "packageFilters": "com.research.mall.demo.controller.HelloWorldController",
+  "customResponseFields": [
+    {
+      "name": "code",
+      "desc": "响应代码",
+      "ownerClassName": "org.springframework.data.domain.Pageable",
+      "value": "00000"
+    }
+  ],
+  "revisionLogs": [
+    {
+      "version": "1.0",
+      "revisionTime": "2020-12-31 10:30",
+      "status": "update",
+      "author": "author",
+      "remarks": "desc"
+    }
+  ]
+}
