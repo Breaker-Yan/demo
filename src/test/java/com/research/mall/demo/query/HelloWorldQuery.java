@@ -11,9 +11,9 @@ public class HelloWorldQuery {
      * 姓名
      */
     private final String name1;
-    private final HelloWorldQuery2 query2;
+    private final HelloWorldQueryTwo query2;
 
-    public HelloWorldQuery(String name1, HelloWorldQuery2 query2) {
+    public HelloWorldQuery(String name1, HelloWorldQueryTwo query2) {
         this.name1 = name1;
         this.query2 = query2;
     }
@@ -22,7 +22,7 @@ public class HelloWorldQuery {
         return name1;
     }
 
-    public HelloWorldQuery2 getQuery2() {
+    public HelloWorldQueryTwo getQuery2() {
         return query2;
     }
 }
