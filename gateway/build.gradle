@@ -1,10 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.5'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group = 'com.gateway'
+group = 'gateway'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -13,9 +11,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter:2.4.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.2'
 }
 
 test {
