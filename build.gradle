@@ -3,9 +3,8 @@ buildscript {
         classpath 'com.github.shalousun:smart-doc-gradle-plugin:2.1.0'
     }
 }
+
 plugins {
-    id 'org.springframework.boot' version '2.4.2'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id "com.github.shalousun.smart-doc" version "2.1.0"
     id 'java'
 }
@@ -14,12 +13,10 @@ group = 'com.research.mall'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+apply plugin: "com.github.shalousun.smart-doc"
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'com.h2database:h2'
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$SpringBootVersion"
     testCompile 'com.github.shalousun:smart-doc:2.1.0'
 }
 
@@ -29,15 +26,9 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: "com.github.shalousun.smart-doc"
-
 smartdoc {
     configFile = file("src/main/resources/json/smart-doc.json")
     exclude 'org.springframework.boot:spring-boot-starter-tomcat'
     exclude 'org.springframework.boot.*'
     include 'org.springframework.boot:spring-boot-starter-tomcat'
-}
-
-test {
-    useJUnitPlatform()
 }
