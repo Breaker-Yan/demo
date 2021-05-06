@@ -20,6 +20,7 @@ import java.util.Objects;
  * @author: yanchenyang
  * @date: 2021/5/6
  **/
+@SuppressWarnings({"rawtypes", "SameParameterValue"})
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = GatewayApplication.class)
 public class IntegrationConfig {
@@ -28,7 +29,6 @@ public class IntegrationConfig {
     /**
      * Get
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     protected <T> ResultJson<T> get(String url, Class<T> responseType, Map<String, Object> params) {
         HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<>(params, getHeader());
         ResponseEntity<ResultJson> exchange = testRestTemplate.exchange(url, HttpMethod.GET, httpEntity, ResultJson.class, params);
@@ -43,7 +43,7 @@ public class IntegrationConfig {
      * @param params       请求参数
      * @return 返回值
      */
-    protected <T> ResponseEntity<T> post(String url, Class<T> responseType, Map<String, Object> params) {
+    protected <T> ResultJson<T> post(String url, Class<T> responseType, Map<String, Object> params) {
         return getResponseEntity(url, params, HttpMethod.POST, responseType);
     }
 
@@ -55,7 +55,7 @@ public class IntegrationConfig {
      * @param params       请求参数
      * @return 返回值
      */
-    protected <T> ResponseEntity<T> put(String url, Class<T> responseType, Map<String, Object> params) {
+    protected <T> ResultJson<T> put(String url, Class<T> responseType, Map<String, Object> params) {
         return getResponseEntity(url, params, HttpMethod.PUT, responseType);
     }
 
@@ -67,14 +67,15 @@ public class IntegrationConfig {
      * @param params       请求参数
      * @return 返回值
      */
-    protected <T> ResponseEntity<T> delete(String url, Class<T> responseType, Map<String, Object> params) {
+    protected <T> ResultJson<T> delete(String url, Class<T> responseType, Map<String, Object> params) {
         return getResponseEntity(url, params, HttpMethod.DELETE, responseType);
     }
 
-    private <T> ResponseEntity<T> getResponseEntity(String url, Map<String, Object> params,
-                                                    HttpMethod method, Class<T> responseType) {
+    private <T> ResultJson<T> getResponseEntity(String url, Map<String, Object> params,
+                                                HttpMethod method, Class<T> responseType) {
         RequestEntity<Map<String, Object>> requestEntity = new RequestEntity<>(params, getHeader(), method, URI.create(url));
-        return testRestTemplate.exchange(requestEntity, responseType);
+        ResponseEntity<ResultJson> exchange = testRestTemplate.exchange(requestEntity, ResultJson.class);
+        return getResultJson(responseType, exchange);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

@@ -6,6 +6,7 @@ import com.gateway.integration.vo.HelloVO;
 import com.google.common.collect.ImmutableMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,10 +22,20 @@ public class HelloControllerTest extends IntegrationConfig {
     @Test
     void should_send_get_request_and_result_data_correctly() {
         ResultJson<HelloVO> resultJson = get("/test/get", HelloVO.class, ImmutableMap.of());
+        assertThatResult(resultJson, "get");
+    }
+
+    @Test
+    void should_send_post_request_and_result_data_correctly() {
+        ResultJson<HelloVO> resultJson = post("/test/post", HelloVO.class, ImmutableMap.of());
+        assertThatResult(resultJson, "post");
+    }
+
+    private void assertThatResult(ResultJson<HelloVO> resultJson, String result) {
         assert resultJson != null;
         assertThat(resultJson.getStatus()).isEqualTo(200);
         assertThat(resultJson.getMessage()).isEqualTo("操作成功");
-        assertThat(resultJson.getData().getResult()).isEqualTo("get");
+        assertThat(resultJson.getData().getResult()).isEqualTo(result);
     }
 }
 
@@ -34,7 +45,11 @@ class HelloController {
 
     @GetMapping("/get")
     public ResultJson<HelloVO> getRequest() {
-        HelloVO helloVO = new HelloVO("get");
-        return ResultJson.success(helloVO);
+        return ResultJson.success(new HelloVO("get"));
+    }
+
+    @PostMapping("/post")
+    public ResultJson<HelloVO> postRequest() {
+        return ResultJson.success(new HelloVO("post"));
     }
 }
