@@ -12,8 +12,8 @@ repositories {
 dependencies {
     compile (
         "org.projectlombok:lombok:$LombokVersion",
-        "com.google.guava:guava:$GuabaVersion"
-
+        "com.google.guava:guava:$GuabaVersion",
+        "com.fasterxml.jackson.core:jackson-databind:$JacksonVersion"
     )
     testCompile (
         "org.assertj:assertj-core:$JunitAssertJVersion"

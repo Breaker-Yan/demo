@@ -3,7 +3,6 @@ package com.common.util;
 import com.common.util.enums.RequestCodeEnums;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 
 /**
  * @className: ResultJson
@@ -24,6 +23,10 @@ public class ResultJson<T> implements Serializable {
         resultJson.message = RequestCodeEnums.SUCCESS.getMessage();
         resultJson.status = RequestCodeEnums.SUCCESS.getCode();
         return resultJson;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
     public Integer getStatus() {

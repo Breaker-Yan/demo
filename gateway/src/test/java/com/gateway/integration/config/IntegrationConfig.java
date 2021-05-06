@@ -1,5 +1,6 @@
 package com.gateway.integration.config;
 
+import com.common.util.DataConversion;
 import com.common.util.ResultJson;
 import com.gateway.GatewayApplication;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,9 +10,9 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.Resource;
-import java.lang.reflect.ParameterizedType;
 import java.net.URI;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @className: IntegrationTest
@@ -27,14 +28,11 @@ public class IntegrationConfig {
     /**
      * Get
      */
-    protected <T> ResponseEntity<T> get(String url, Class<T> responseType, Map<String, Object> params) {
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    protected <T> ResultJson<T> get(String url, Class<T> responseType, Map<String, Object> params) {
         HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<>(params, getHeader());
-
-        ResultJson<String> resultJson = new ResultJson<>();
-        Class entityClass = (Class) ((ParameterizedType) resultJson.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        ResponseEntity exchange = testRestTemplate.exchange(url, HttpMethod.GET, httpEntity, entityClass, params);
-        Object body = exchange.getBody();
-        return testRestTemplate.exchange(url, HttpMethod.GET, httpEntity, responseType, params);
+        ResponseEntity<ResultJson> exchange = testRestTemplate.exchange(url, HttpMethod.GET, httpEntity, ResultJson.class, params);
+        return getResultJson(responseType, exchange);
     }
 
     /**
@@ -77,6 +75,14 @@ public class IntegrationConfig {
                                                     HttpMethod method, Class<T> responseType) {
         RequestEntity<Map<String, Object>> requestEntity = new RequestEntity<>(params, getHeader(), method, URI.create(url));
         return testRestTemplate.exchange(requestEntity, responseType);
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private <T> ResultJson<T> getResultJson(Class<T> responseType, ResponseEntity<ResultJson> exchange) {
+        ResultJson resultJson = exchange.getBody();
+        T t = DataConversion.toBean(Objects.requireNonNull(resultJson).getData(), responseType);
+        resultJson.setData(t);
+        return resultJson;
     }
 
     private HttpHeaders getHeader() {
