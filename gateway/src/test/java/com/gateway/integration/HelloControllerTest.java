@@ -5,10 +5,7 @@ import com.gateway.integration.config.IntegrationConfig;
 import com.gateway.integration.vo.HelloVO;
 import com.google.common.collect.ImmutableMap;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,6 +28,18 @@ public class HelloControllerTest extends IntegrationConfig {
         assertThatResult(resultJson, "post");
     }
 
+    @Test
+    void should_send_put_request_and_result_data_correctly() {
+        ResultJson<HelloVO> resultJson = put("/test/put", HelloVO.class, ImmutableMap.of());
+        assertThatResult(resultJson, "put");
+    }
+
+    @Test
+    void should_send_delete_request_and_result_data_correctly() {
+        ResultJson<HelloVO> resultJson = delete("/test/delete", HelloVO.class, ImmutableMap.of());
+        assertThatResult(resultJson, "delete");
+    }
+
     private void assertThatResult(ResultJson<HelloVO> resultJson, String result) {
         assert resultJson != null;
         assertThat(resultJson.getStatus()).isEqualTo(200);
@@ -51,5 +60,15 @@ class HelloController {
     @PostMapping("/post")
     public ResultJson<HelloVO> postRequest() {
         return ResultJson.success(new HelloVO("post"));
+    }
+
+    @PutMapping("/put")
+    public ResultJson<HelloVO> putRequest() {
+        return ResultJson.success(new HelloVO("put"));
+    }
+
+    @DeleteMapping("/delete")
+    public ResultJson<HelloVO> deleteRequest() {
+        return ResultJson.success(new HelloVO("delete"));
     }
 }
