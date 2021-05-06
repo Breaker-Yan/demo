@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    compile project(":common");
     implementation "org.springframework.boot:spring-boot-starter-web:$SpringBootVersion"
     testImplementation "org.springframework.boot:spring-boot-starter-test:$SpringBootVersion"
 }
