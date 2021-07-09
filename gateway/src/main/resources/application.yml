@@ -12,4 +12,10 @@ eureka:
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8087/eureka/
-
+feign:
+  client:
+    config:
+      default:
+        connectionTimeout: 5000  #连接超时时间
+        readTimeout: 5000 #读超时时间
+        loggerLevel:  full #日志级别

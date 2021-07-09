@@ -1,8 +1,8 @@
 package com.gateway.controller;
 
+import com.gateway.service.TestService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 
@@ -14,10 +14,10 @@ import javax.annotation.Resource;
  **/
 @RestController
 public class TestController {
-    private @Resource RestTemplate restTemplate;
+    private @Resource TestService testService;
 
     @RequestMapping("/hello")
     public String home() {
-        return restTemplate.getForEntity("http://order-provider/hello", String.class).getBody();
+        return testService.home();
     }
 }
