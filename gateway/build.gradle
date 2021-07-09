@@ -15,6 +15,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:$SpringBootVersion"
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$SpringCloudVersion"
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:$SpringCloudVersion"
+
     testImplementation "org.springframework.boot:spring-boot-starter-test:$SpringBootVersion"
 }
 
