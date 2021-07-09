@@ -15,6 +15,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:$SpringBootVersion"
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$SpringCloudVersion"
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:$SpringCloudVersion"
+    implementation "org.springframework.cloud:spring-cloud-starter-config:$SpringCloudVersion"
+    //spring boot 默认不加在bootstrap.yml 文件的
+    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:$SpringCloudVersion"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$SpringBootVersion"
 }

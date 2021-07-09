@@ -1,7 +1,7 @@
 #port
 server:
   port: 3301
-
+#git address
 spring:
   application:
     name: config-server # 应用名称
@@ -14,3 +14,9 @@ spring:
           password: lyfilp1314
           default-label: master
           search-paths: config
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8087/eureka/
+    register-with-eureka: true
+    fetch-registry: true

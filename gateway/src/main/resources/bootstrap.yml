@@ -6,12 +6,25 @@ server:
 spring:
   application:
     name: gateway
+  cloud:
+    config:
+      name: test
+      label: master
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: config-server
+
+#eureka
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
+      egister-with-eureka: true
+      fetch-registry: true
       defaultZone: http://${eureka.instance.hostname}:8087/eureka/
+
 feign:
   client:
     config:
