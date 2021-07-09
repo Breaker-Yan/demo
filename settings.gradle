@@ -1,3 +1,4 @@
 rootProject.name = 'cool'
 include 'common'
 include 'gateway'
+include 'eureka-server'

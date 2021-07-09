@@ -5,15 +5,19 @@ plugins {
 group 'com.research.mall'
 version '0.0.1-SNAPSHOT'
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        mavenCentral()
+    }
 }
 
 dependencies {
     compile (
         "org.projectlombok:lombok:$LombokVersion",
         "com.google.guava:guava:$GuabaVersion",
-        "com.fasterxml.jackson.core:jackson-databind:$JacksonVersion"
+        "com.fasterxml.jackson.core:jackson-databind:$JacksonVersion",
+        "com.google.code.gson:gson:$GsonVersion"
     )
     testCompile (
         "org.assertj:assertj-core:$JunitAssertJVersion"

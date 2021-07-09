@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.research.mall'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+allprojects {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        mavenCentral()
+    }
+}
+
+ext {
+    set('springCloudVersion', "2020.0.3")
+}
+
+dependencies {
+    compile project(":common")
+    implementation "org.springframework.boot:spring-boot-starter-web:$SpringBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter:$SpringBootVersion"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:$SpringCloudVersion"
+    implementation "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+test {
+    useJUnitPlatform()
+}
